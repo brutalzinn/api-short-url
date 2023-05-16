@@ -7,16 +7,14 @@ ENV TZ="America/Sao_Paulo"
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-
-
 COPY ["src/ApiShortUrl.csproj", "."]
-RUN dotnet restore "./src/ApiShortUrl.csproj"
+RUN dotnet restore "ApiShortUrl.csproj"
 COPY . .
 WORKDIR "/src/."
-RUN dotnet build "src/ApiShortUrl.csproj" -c Release -o /app/build
+RUN dotnet build "ApiShortUrl.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "src/ApiShortUrl.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "ApiShortUrl.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
