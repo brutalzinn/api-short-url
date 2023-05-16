@@ -6,11 +6,11 @@ EXPOSE 80
 ENV TZ="America/Sao_Paulo"
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-WORKDIR /src
-COPY ["src/ApiShortUrl.csproj", "."]
+WORKDIR /app
+COPY ["app/ApiShortUrl.csproj", "."]
 RUN dotnet restore "./ApiShortUrl.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/app/."
 RUN dotnet build "ApiShortUrl.csproj" -c Release -o /app/build
 
 FROM build AS publish
