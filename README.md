@@ -1,6 +1,6 @@
 # API-SHORT-URL
 
-https://api-short-url.boberto.net/swagger
+https://api-short-url.boberto.net/swagger/index.html
 
 All urls generated will expire about 24 hours
 
