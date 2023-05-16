@@ -2,6 +2,7 @@
 
 api-short-url.boberto.net/swagger
 
+All urls generated will expire about 24 hours
 
 # Support the project using my referel link to digital ocean :)
 
