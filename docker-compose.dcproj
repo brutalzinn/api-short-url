@@ -6,7 +6,7 @@
     <ProjectGuid>8e44f3d7-2956-47a0-af2c-b765e7e49443</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}/swagger</DockerServiceUrl>
-    <DockerServiceName>geradordedados</DockerServiceName>
+    <DockerServiceName>c#-skeleton-docker</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.yml" />

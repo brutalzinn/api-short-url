@@ -1,10 +1,14 @@
 ##Baseado em https://github.com/AlexSugak/dotnet-core-tdd/blob/master/Makefile
 
 build:
-	dotnet build ApiPlaceHolderDemo.csproj
+	dotnet build src/ApiShortUrl.csproj
+
+
+restore:
+	dotnet restore src/ApiShortUrl.sln
 
 package:
-	dotnet add ApiPlaceHolderDemo.csproj package $(ARGS)
+	dotnet add src/ApiShortUrl.csproj package $(ARGS)
 
 rebuild-docker: 
 	docker-compose down

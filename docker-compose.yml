@@ -1,14 +1,35 @@
 version: '3.4'
 
 services:
-  geradordedados:
-    image: mcr.microsoft.com/dotnet/aspnet:7.0
-    build:
-      context: .
-      dockerfile: Dockerfile
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development
-    volumes:
-      - ./:/app
-    ports:
-      - "5556:80"
+  # geradordedados:
+  #   image: mcr.microsoft.com/dotnet/aspnet:7.0
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   environment:
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #   volumes:
+  #     - ./:/app
+  #   ports:
+  #     - "5556:80"
+    postgres:
+        image: postgres
+        hostname: postgree_hostname
+        environment:
+            - POSTGRES_USER=root
+            - POSTGRES_PASSWORD=test
+            - POSTGRES_DB=test
+        ports:
+            - 5555:5432
+        volumes:
+            - ./scripts/clear_data.sql:/scripts/clear_data.sql
+            - ./scripts/insert_data.sql:/scripts/insert_data.sql
+            - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+        # tmpfs:
+        #     - /var/lib/postgresql/data
+        restart: unless-stopped
+        healthcheck:
+            test: ["CMD", "pg_isready"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
