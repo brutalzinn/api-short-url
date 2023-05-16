@@ -9,7 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 
 
-COPY ["ApiShortUrl.csproj", "."]
+COPY ["src/ApiShortUrl.csproj", "."]
 RUN dotnet restore "./src/ApiShortUrl.csproj"
 COPY . .
 WORKDIR "/src/."
