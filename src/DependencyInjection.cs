@@ -8,10 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using ApiShortUrl.Services.UrlService;
 using ApiShortUrl.Models.Settings;
-using ApiShortUrl.Authentication;
 using Microsoft.OpenApi.Models;
 using ApiShortUrl.Services.Redis;
 

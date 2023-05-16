@@ -2,8 +2,6 @@ using ApiShortUrl;
 using ApiShortUrl.Handlers;
 using ApiShortUrl.Routes.Geradores;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
 
 public class Program
 {
