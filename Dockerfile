@@ -9,9 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
 COPY ["src/ApiShortUrl.csproj", "."]
 RUN dotnet restore "./ApiShortUrl.csproj"
-COPY . .
-
-WORKDIR /src
+COPY ["src", "."]
 RUN dotnet build "ApiShortUrl.csproj" -c Release -o /app/build
 FROM build AS publish
 RUN dotnet publish "ApiShortUrl.csproj" -c Release -o /app/publish /p:UseAppHost=false
