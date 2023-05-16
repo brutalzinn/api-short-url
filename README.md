@@ -1,22 +1,7 @@
-# API-STRING-PLACEHOLDER-DEMO
+# API-SHORT-URL
 
-# Goals
+api-short-url.boberto.net/swagger
 
-1. Uses nuget package [string-placeholder](https://github.com/brutalzinn/string-placeholder) to be used by a web application to a complete view about the library.
-
-# Resources
-
-- Process a text and return the text with placeholders
-- Generate random PDF files and images with random pixels
-
-# Swagger
-
-https://api-string-placeholder-demo.boberto.net/swagger
-ApiKey: babayaga
-
-# Web apps to test this api
-
-* [FRONT MOCK GENERATOR](https://github.com/brutalzinn/front-mock-string-placeholder)
 
 # Support the project using my referel link to digital ocean :)
 
