@@ -1,20 +1,24 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using Cronos;
+using Microsoft.Extensions.Caching.Distributed;
+using System;
 using System.Collections.Generic;
 using System.Text.Json;
+using Microsoft.Extensions.Configuration;
+using ApiShortUrl.Models.Settings;
 
 namespace ApiShortUrl.Services.Redis
 {
     public class RedisService : IRedisService
     {
-        private readonly IDistributedCache _redisCache;
-        private readonly DistributedCacheEntryOptions _distributedCacheEntry;
+        private IDistributedCache _redisCache;
+        private ApiConfig _apiConfig;
 
-        public RedisService(IDistributedCache redisCache, DistributedCacheEntryOptions distributedCacheEntry)
+        public RedisService(IDistributedCache redisCache, Microsoft.Extensions.Options.IOptions<ApiConfig> apiConfig)
         {
             _redisCache = redisCache;
-            _distributedCacheEntry = distributedCacheEntry;
-        }
+            _apiConfig = apiConfig.Value;
 
+        }
         public T Get<T>(string chave)
         {
             var value = _redisCache.GetString(chave);
@@ -27,7 +31,7 @@ namespace ApiShortUrl.Services.Redis
 
         public void Set<T>(string chave, T valor)
         {
-            _redisCache.SetString(chave, JsonSerializer.Serialize(valor), _distributedCacheEntry);
+            _redisCache.SetString(chave, JsonSerializer.Serialize(valor), GetExpirationTime());
         }
 
         public bool Clear(string chave)
@@ -56,10 +60,10 @@ namespace ApiShortUrl.Services.Redis
             {
                 lista = JsonSerializer.Deserialize<List<T>>(value);
                 lista.Add(valor);
-                _redisCache.SetString(chave, JsonSerializer.Serialize(lista), _distributedCacheEntry);
+                _redisCache.SetString(chave, JsonSerializer.Serialize(lista), GetExpirationTime());
             }
             lista.Add(valor);
-            _redisCache.SetString(chave, JsonSerializer.Serialize(lista), _distributedCacheEntry);
+            _redisCache.SetString(chave, JsonSerializer.Serialize(lista), GetExpirationTime());
         }
 
 
@@ -82,5 +86,16 @@ namespace ApiShortUrl.Services.Redis
             _redisCache.SetString(chave, JsonSerializer.Serialize(lista));
 
         }
+        ///temporary. now i found the problem with my expiration time.
+        private DistributedCacheEntryOptions GetExpirationTime()
+        {
+            var cronParsed = CronExpression.Parse(_apiConfig.CacheConfig.ExpireEvery);
+            var distributedCacheEntry = new DistributedCacheEntryOptions
+            {
+                AbsoluteExpiration = cronParsed.GetNextOccurrence(DateTime.UtcNow),
+            };
+            return distributedCacheEntry;
+        }
+
     }
 }

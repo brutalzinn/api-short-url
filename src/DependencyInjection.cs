@@ -53,20 +53,12 @@ namespace ApiShortUrl
 
         private static void InjectRedis(this IServiceCollection services, IConfigurationRoot config)
         {
-            var serviceProvider = services.BuildServiceProvider();
-            var apiConfig = serviceProvider.GetRequiredService<IOptions<ApiConfig>>().Value;
-            var cronParsed = CronExpression.Parse(apiConfig.CacheConfig.ExpireEvery);
-            var distributedCacheEntry = new DistributedCacheEntryOptions
-            {
-                AbsoluteExpiration = cronParsed.GetNextOccurrence(DateTime.UtcNow),
-            };
-            services.AddSingleton(distributedCacheEntry);
             services.AddStackExchangeRedisCache(options =>
             {
-                options.Configuration = ObterRedisContext();
+                options.Configuration = GetRedisContext();
             });
 
-            string ObterRedisContext()
+            string GetRedisContext()
             {
                 var redisContextUrl = config.GetConnectionString("Redis");
                 Uri redisUrl;

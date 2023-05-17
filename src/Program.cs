@@ -17,7 +17,6 @@ public class Program
         app.UseAuthentication();
         app.UseAuthorization();
         app.AddCustomExceptionHandler();
-
         app.UseSwagger();
         app.UseSwaggerUI();
 
