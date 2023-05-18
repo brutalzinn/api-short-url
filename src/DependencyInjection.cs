@@ -39,7 +39,6 @@ namespace ApiShortUrl
             services.AddAuthorization();
             services.AddSingleton<IRedisService, RedisService>();
             services.AddSingleton<IUrlService, UrlService>();
-            services.AddHttpContextAccessor();
         }
 
 
