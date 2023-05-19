@@ -1,8 +1,15 @@
 ##Baseado em https://github.com/AlexSugak/dotnet-core-tdd/blob/master/Makefile
+setup-ubuntu: 
+	xdg-open http://localhost:5000/howto & \
+	docker-compose up -d  && \ 
+	
 
+setup-windows: 
+	explorer "http://localhost:1313" & \
+	docker-compose up -d 
+	
 build:
 	dotnet build src/ApiShortUrl.csproj
-
 
 restore:
 	dotnet restore src/ApiShortUrl.sln

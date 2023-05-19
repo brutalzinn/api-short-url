@@ -1,21 +1,20 @@
 version: '3.4'
 
 services:
-  geradordedados:
+  apishorturl:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
     volumes:
-      - ./:/app
+      - ./src:/app
     ports:
-      - "5556:80"
+      - "5000:80"
     links:
     - "redis_service"
     depends_on:
     - "redis_service"
-
 
   redis_service:
     image: redis:6.2-alpine
