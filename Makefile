@@ -5,7 +5,7 @@ setup-ubuntu:
 	
 
 setup-windows: 
-	explorer "http://localhost:1313" & \
+	explorer "http://localhost:5000/howto" & \
 	docker-compose up -d 
 	
 build:
