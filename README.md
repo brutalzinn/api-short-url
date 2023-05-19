@@ -2,6 +2,10 @@
 
 https://api-short-url.boberto.net/swagger/index.html
 
+# How to use?
+
+https://api-short-url.boberto.net/howto
+
 All urls generated will expire about 24 hours
 
 ApiKey: babayaga
