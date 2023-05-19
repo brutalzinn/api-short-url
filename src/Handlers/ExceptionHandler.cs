@@ -25,7 +25,7 @@ namespace ApiShortUrl.Handlers
                     switch (customException.Type)
                     {
                         case TypeException.AUTHORIZATION:
-                            context.Response.Redirect("static/index.html");
+                            context.Response.Redirect("static/error.html");
                             break;
                         default:
                             await context.Response.WriteAsJsonAsync(customException.GetResponse());
