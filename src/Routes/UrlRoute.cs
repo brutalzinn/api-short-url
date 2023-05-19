@@ -12,28 +12,23 @@ namespace ApiShortUrl.Routes.Geradores
     {
         public static void Create(this WebApplication app)
         {
-            app.MapGet("/url/short",
-                [Authorize(AuthenticationSchemes = "ApiKey")]
-            async ([FromQuery] string url, [FromServices] IUrlService urlService, HttpContext httpContext) =>
+            app.MapGet("/short",
+            [Authorize(AuthenticationSchemes = "ApiKeyByUrl")]
+            ([FromQuery] string url, [FromServices] IUrlService urlService, HttpContext httpContext) =>
                 {
                     var result = urlService.CreateUrl(url);
-                    result.CreateUrlShort(httpContext);
+                    result.CreateUrlSchema(httpContext);
                     return result;
                 });
 
             app.MapGet("/{shortid}",
              ([FromRoute] string shortid, [FromServices] IUrlService urlService, HttpContext httpContext) =>
             {
-                var result = urlService.GetUrl(shortid);
-                httpContext.Response.Redirect(result?.OriginalUrl ?? "/notfound");
+                var result = urlService.GetByShortId(shortid);
+                var path = result?.OriginalUrl ?? "/notfound";
+                httpContext.Response.Redirect(path);
             });
 
-            app.MapGet("/notfound",
-            (HttpContext httpContext) =>
-            {
-                httpContext.Response.ContentType = "text/html";
-                return httpContext.Response.SendFileAsync("static/error.html");
-            });
         }
     }
 }

@@ -44,9 +44,9 @@ namespace ApiShortUrl
 
         private static void InjectAuthentions(this IServiceCollection services)
         {
-            services.AddAuthentication("ApiKey")
-                 .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationHandler>
-                 ("ApiKey", null);
+            services.AddAuthentication()
+           .AddScheme<AuthenticationSchemeOptions, ApiKeyAuthenticationByUrlHandler>
+           ("ApiKeyByUrl", null);
 
         }
 

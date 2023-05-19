@@ -15,6 +15,11 @@ namespace ApiShortUrl.Models.Exceptions
             StatusCode = (int)typeException;
         }
 
+        public CustomException(TypeException typeException)
+        {
+            Type = typeException;
+            StatusCode = (int)typeException;
+        }
         public CustomExceptionResponse GetResponse()
         {
             var response = new CustomExceptionResponse()
@@ -31,7 +36,7 @@ namespace ApiShortUrl.Models.Exceptions
             switch (Type)
             {
                 case TypeException.BUSINESS_LOGIC:
-                    return "business";
+                    return "business_logic";
                 case TypeException.AUTHORIZATION:
                     return "not_authorize";
                 case TypeException.VALIDATION:

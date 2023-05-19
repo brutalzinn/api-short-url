@@ -8,7 +8,10 @@ namespace ApiShortUrl.Services.UrlService
     {
         UrlModel CreateUrl(string originalUrl);
 
-        UrlModel? GetUrl(string shortId);
+        UrlModel? GetByShortId(string shortId);
+
+        UrlModel? GetByMd5(string shortId);
+
 
     }
 

@@ -20,10 +20,5 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="7.0.4" />
   </ItemGroup>
 
-<ItemGroup>
-    <None Include="static/error.html">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-</ItemGroup>
 
 </Project>

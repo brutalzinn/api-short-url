@@ -1,4 +1,6 @@
-﻿using ApiShortUrl.Models.Exceptions;
+﻿using System;
+using ApiShortUrl.Models;
+using ApiShortUrl.Models.Exceptions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
@@ -15,10 +17,21 @@ namespace ApiShortUrl.Handlers
                 context.Response.ContentType = "application/json";
                 var exceptionHandlerPathFeature =
                     context.Features.Get<IExceptionHandlerPathFeature>();
+
                 if (exceptionHandlerPathFeature?.Error is CustomException customException)
                 {
                     context.Response.StatusCode = customException.StatusCode;
-                    await context.Response.WriteAsJsonAsync(customException.GetResponse());
+
+                    switch (customException.Type)
+                    {
+                        case TypeException.AUTHORIZATION:
+                            context.Response.Redirect("static/index.html");
+                            break;
+                        default:
+                            await context.Response.WriteAsJsonAsync(customException.GetResponse());
+                            break;
+
+                    }
                 }
             }));
         }

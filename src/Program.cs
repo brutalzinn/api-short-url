@@ -13,15 +13,15 @@ public class Program
         DependencyInjection.Inject(builder.Services);
         var app = builder.Build();
         app.UseCors("corsapp");
-
+        app.UseStaticFiles();
+        app.AddCustomExceptionHandler();
         app.UseAuthentication();
         app.UseAuthorization();
-        app.AddCustomExceptionHandler();
         app.UseSwagger();
         app.UseSwaggerUI();
 
         UrlRoute.Create(app);
-
+        DefaultRoute.Create(app);
         app.Run();
     }
 }
